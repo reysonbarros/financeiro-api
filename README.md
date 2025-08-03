@@ -5,6 +5,9 @@ Personal Finance Application
 This is an app based on algamoney-api project from Algaworks company for personal finance management.
 The goal is optimize to run on Kubernetes using the best practices such as security, monitoring and automation.
 
+## Demo
+[![Watch the video](https://raw.githubusercontent.com/reysonbarros/financeiro-api/main/docs/demo/logo.png)](https://raw.githubusercontent.com/reysonbarros/financeiro-api/main/docs/demo/demo-financeiro-api.mp4)
+
 ## Prerequisites
 
 ### Backend
