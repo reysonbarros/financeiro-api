@@ -1,0 +1,13 @@
+apiVersion: v2
+name: financeiro-api
+description: Sistema Financeiro para Controle de Receitas e Despesas
+version: 3.0.0
+appVersion: 3.0.0
+maintainers:
+  - name: Reyson Barros
+    email: reysonbarros@gmail.com
+    url: https://reysonbarros.dev  
+  - name: Bianca Bezerra
+    email: biancabezerrathe71@gmail.com
+sources:
+  - https://github.com/reysonbarros/financeiro-api

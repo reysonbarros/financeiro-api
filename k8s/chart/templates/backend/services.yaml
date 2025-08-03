@@ -1,0 +1,27 @@
+{{- range $component, $config := .Values.services }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $component }}
+  namespace: {{ $config.namespace }}  
+  annotations:
+  {{- if eq $component "financeiro-api" }}    
+    prometheus.io/port: "http"
+    prometheus.io/scrape: "true"  
+  {{- end }}
+  labels:
+    app: {{ $config.labels.app }}
+  {{- if eq $component "financeiro-api" }}  
+    app.kubernetes.io/part-of: financeiro-api
+  {{- end }}    
+spec:
+  ports:
+    - name: {{ $config.ports.name }}
+      port: {{ $config.ports.port }}
+      protocol: {{ $config.ports.protocol }}
+      targetPort: {{ $config.ports.targetPort }}
+  selector:
+    app: {{ $config.labels.app }}
+  type: {{ $config.serviceType }}
+---
+{{- end }}

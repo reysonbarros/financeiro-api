@@ -1,0 +1,88 @@
+{{- range $component, $config := .Values.deployments }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $component  }}
+  namespace: {{ $config.namespace }}
+  labels:
+    {{- include "app.labels" $config | nindent 4 }} 
+spec:
+  replicas: {{ $config.replicas | default 2 }}
+  strategy:
+    type: {{ $config.strategy.type }}
+    rollingUpdate:
+      maxSurge: {{ $config.strategy.maxSurge }}
+      maxUnavailable: {{ $config.strategy.maxUnavailable }}
+  selector:
+    matchLabels:
+      {{- include "app.labels" $config | nindent 6 }} 
+  template:
+    metadata:
+      labels:
+        {{- include "app.labels" $config | nindent 8 }} 
+    spec:
+      initContainers:
+      - name: {{ $config.initContainers.name }}
+        image: {{ $config.initContainers.image }}
+        command: {{ $config.initContainers.command }}
+      containers:
+        - name: {{ $config.containers.name }}
+          image: {{ $config.containers.image }}
+          {{- if eq $component "financeiro-api" }}
+          env:
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-app
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-app
+                  key: password
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: financeiro-api-aws-credentials
+                  key: key_id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: financeiro-api-aws-credentials
+                  key: secret
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: financeiro-api
+                  key: jwtSecretKey
+          envFrom:
+            - configMapRef:
+                name: financeiro-api
+          {{- end }}             
+          ports:
+            {{- include "app.ports" $config | nindent 12 }}
+          resources:      
+            {{- include "app.resources" $config | nindent 12 }}          
+          livenessProbe:  # Verificação de integridade
+            {{- include "app.livenessProbe" $config | nindent 12 }}          
+          readinessProbe:  #  Verificação para receber tráfego(requests)
+            {{- include "app.readinessProbe" $config | nindent 12 }}          
+
+          {{- if eq $component "financeiro-api" }}
+          securityContext:
+            runAsNonRoot: {{ $config.containers.securityContext.runAsNonRoot }}
+          {{- end }}
+      {{- if eq $component "financeiro-api" }}    
+      affinity:
+        podAntiAffinity:  # Evita pods(same label) rodar no mesmo node(topologia)
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:  # label do pod
+                matchExpressions:
+                  - key: "app"  # nome da label do pod
+                    operator: In
+                    values:  # valores da label do pod a serem buscados
+                      - {{ $config.labels.app}}
+              topologyKey: "kubernetes.io/hostname"
+      {{- end }}
+---      
+{{- end }}      

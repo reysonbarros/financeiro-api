@@ -1,0 +1,40 @@
+server:
+  servlet:
+    context-path: /financeiro
+  port: ${SERVER_PORT:9191}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: never
+
+logging:
+  level:    
+    com:
+      financeiro:
+        api: ${LOG_LEVEL:DEBUG}
+    
+spring:
+  jpa:
+    database: MYSQL
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: ${SPRING_JPA_SHOW_SQL:true}
+  datasource:    
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/financeiro?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false}
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: 'true'
+    date-format: yyyy-MM-dd
+    
+financeiro:
+  s3:
+    access-key-id: ${AWS_ACCESS_KEY_ID}
+    access-key-secret: ${AWS_ACCESS_KEY_SECRET}
+    bucket: ${AWS_BUCKET_NAME}

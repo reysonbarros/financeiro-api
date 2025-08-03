@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: Gateway
+metadata:
+  name: gateway
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+    - port:
+        number: 80
+        name: financeiro-api-svc
+        protocol: HTTP
+      hosts:
+        - 'app.financeiro.com'
+    - port:
+        number: 80
+        name: locust-master-svc
+        protocol: HTTP
+      hosts:
+        - 'locust.financeiro.com'

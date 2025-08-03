@@ -1,0 +1,43 @@
+server:
+  port: ${SERVER_PORT:9191}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    org:
+      springframework:
+        security: ${LOG_LEVEL_SECURITY:INFO}
+    com:
+      financeiro:
+        api: ${LOG_LEVEL_APP:INFO}
+
+spring:
+  jpa:
+    database: MYSQL
+    show-sql: ${SPRING_JPA_SHOW_SQL:true}
+  datasource:
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    url: ${SPRING_DATASOURCE_URL}
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: 'true'
+    date-format: yyyy-MM-dd
+
+financeiro:
+  s3:
+    access-key-id: ${AWS_ACCESS_KEY_ID}
+    access-key-secret: ${AWS_SECRET_ACCESS_KEY}
+    bucket: ${AWS_BUCKET_NAME:bucket-test}
+  jwt:
+    secret-key: ${JWT_SECRET_KEY}
+    issuer: ${JWT_ISSUER}

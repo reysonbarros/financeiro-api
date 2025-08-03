@@ -1,0 +1,19 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: financeiro-api-servicemonitor
+  labels:
+    app: financeiro-api
+  namespace: monitoring
+spec:
+  endpoints:
+    - interval: 15s
+      port: http
+      path: /financeiro/actuator/prometheus
+      scrapeTimeout: 14s
+  namespaceSelector:
+    matchNames:
+      - financeiro
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: financeiro-api

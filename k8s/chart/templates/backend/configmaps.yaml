@@ -1,0 +1,17 @@
+{{- range $component, $config := .Values.configmaps }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $component }}
+  namespace: {{ $config.namespace }}
+data:
+{{- if eq $component "financeiro-api" }}
+  {{- include "configmaps.financeiro-api" $config | nindent 2 }}
+{{- end }}
+  
+{{- if eq $component "mysql-app" }}
+  {{- include "configmaps.mysql-app" $config | nindent 2 }}
+{{- end }}
+
+---
+{{- end }}

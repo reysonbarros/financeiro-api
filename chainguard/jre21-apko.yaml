@@ -1,0 +1,19 @@
+contents:
+  repositories:
+    - https://dl-cdn.alpinelinux.org/alpine/edge/main
+    - https://dl-cdn.alpinelinux.org/alpine/edge/community
+    - https://apk.bell-sw.com/main
+  packages:
+    - bellsoft-java21-runtime-lite
+entrypoint:
+  command: java -jar
+environment:
+  PATH: /usr/lib/jvm/bellsoft-java21-runtime-lite/bin
+accounts:
+  groups:
+    - groupname: nonroot
+      gid: 65532
+  users:
+    - username: nonroot
+      uid: 65532
+  run-as: nonroot

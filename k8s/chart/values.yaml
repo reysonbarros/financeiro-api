@@ -1,0 +1,135 @@
+deployments:
+  financeiro-api:
+    namespace: "financeiro"
+    name: "financeiro-api-helm"
+    initContainers:
+      name: "test-conn-mysqldb-app"
+      image:  "busybox"
+      command: '["sh", "-c", "for i in $(seq 1 300); do telnet mysql-app.financeiro.svc.cluster.local 3306 && exit 0 || echo waiting for database && sleep 3; done; exit 1"]'
+    containers:
+      name: "financeiro"
+      image: "reysonbarros/financeiro-api:3.0.0"
+      port: 9090  
+      protocol: "TCP"
+      resources:
+        requests:
+          memory: "2048Mi"    
+          cpu: "2"  
+        limits:
+          memory: "4096Mi"    
+          cpu: "3" 
+      securityContext:
+        runAsNonRoot: true
+      livenessProbe:
+        path: "/actuator/health"
+        scheme: "HTTP"
+        port: 9090
+        initialDelaySeconds: 60  # Tempo aguardado antes da 1ª execução
+        periodSeconds: 10  # Intervalo que a probe será executada novamente
+        timeoutSeconds: 5  # Tempo para considerar que a probe falhou
+        successThreshold: 1  # Qtd OK da probe -> container READY
+        failureThreshold: 3  # Qtd FAIL da probe -> container NOT READY
+      readinessProbe:
+        path: "/actuator/health"
+        scheme: "HTTP"
+        port: 9090
+        initialDelaySeconds: 60  # Tempo aguardado antes da 1ª execução
+        periodSeconds: 10  # Intervalo que a probe será executada novamente
+        timeoutSeconds: 5  # Tempo para considerar que a probe falhou
+        successThreshold: 1  # Qtd OK da probe -> container READY
+        failureThreshold: 3  # Qtd FAIL da probe -> container NOT READY  
+    replicas: "1"
+    labels:
+      app: "financeiro-api"
+    strategy:
+      type: "RollingUpdate"
+      maxSurge: 1
+      maxUnavailable: 2
+
+
+statefulsets:
+  mysql-app:
+    namespace: "financeiro"
+    name: "mysql-app-helm"
+    replicas: "1"
+    labels:
+      app: "mysql-financeiro"
+    containers:
+      name: "financeiro-db"
+      image: "mysql:8.0.33"
+      resources:
+        requests:
+          memory: "1024Mi"    
+          cpu: "1"  
+        limits:
+          memory: "2048Mi"    
+          cpu: "2"  
+      livenessProbe:
+        command: "[ 'mysqladmin', 'ping' ]"
+        initialDelaySeconds: 30  # Tempo aguardado antes da 1ª execução
+        periodSeconds: 10  # Intervalo que a probe será executada novamente
+        timeoutSeconds: 5  # Tempo para considerar que a probe falhou
+        successThreshold: 1  # Qtd OK da probe -> container READY
+        failureThreshold: 3  # Qtd FAIL da probe -> container NOT READY
+    serviceName: "mysql-app"
+
+
+services:
+  financeiro-api:
+    namespace: "financeiro"
+    labels:
+      app: "financeiro-api"
+    serviceType: "ClusterIP"
+    ports:
+      name: "financeiro-app"
+      port: 9090
+      targetPort: 9090        
+      protocol: "TCP"
+
+  mysql-app:
+    namespace: "financeiro"
+    labels:
+      app: "mysql-financeiro"
+    serviceType: "ClusterIP"
+    ports:
+      name: "financeiro-db"
+      port: 3306
+      targetPort: 3306
+      protocol: "TCP"
+
+
+secrets:
+  financeiro-api:
+    namespace: "financeiro"
+    type: "Opaque"
+    data:
+      jwtSecretKey: NUEmWXNzcHlTbTFYM3U3Km5VVUx4WCgpIyVySHM1UQ==
+  mysql-app:
+    namespace: "financeiro"
+    type: "Opaque"
+    data:
+      username: ZmluYW5jZWlybw==
+      password: RmluYW5jZWlybzEyMzQ1Njc4OUA=
+
+
+
+configmaps:
+  financeiro-api:
+    namespace: "financeiro"
+    data:
+      SERVER_PORT: "9090"
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-app.financeiro.svc.cluster.local:3306/financeiro?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+      AWS_BUCKET_NAME: s3-financeiro-arquivos
+      AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT: "true"
+      MYSQL_DATABASE: financeiro
+      LOG_LEVEL_ROOT: INFO
+      LOG_LEVEL_SECURITY: INFO
+      LOG_LEVEL_APP: INFO
+      JWT_ISSUER: financeiro-api
+      JWT_TIME_ZONE: GMT-3
+      JWT_EXPIRATION_SECONDS: "300"
+
+  mysql-app:
+    namespace: "financeiro"
+    data:
+      initSql: CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD'; GRANT ALL PRIVILEGES ON financeiro.* TO '$MYSQL_USER'@'%'; FLUSH PRIVILEGES; USE financeiro;

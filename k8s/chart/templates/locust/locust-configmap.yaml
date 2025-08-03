@@ -1,0 +1,91 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: locust-script
+  namespace: stress
+data:
+  locustfile.py: |
+    from locust import HttpUser, task, between
+    import logging
+
+    class FinanceiroLoadTesting(HttpUser):
+        wait_time = between(1, 5)
+    
+    
+        @task
+        def performTest(self):          
+          payload_auth = {
+            "email": "teste@qualidade.com", 
+            "password": "12345678"
+          }
+    
+          response = self.client.post(
+            "/auth", 
+            json=payload_auth
+          )
+               
+    
+        
+          payload_categoria = {
+            "nome": "CategoriaTest"
+          }            
+    
+          self.client.post(
+            "/categorias",
+            headers={"Authorization": "Bearer "+response.json()['token']},
+            json=payload_categoria
+          )    
+        
+          payload_pessoa = {
+              "cpfCnpj": "***67890***",
+              "nome": "Pessoa2",
+              "endereco": {
+                "logradouro": "Rua Teste",
+                "numero": "155",
+                "complemento": "Prox Teste",
+                "bairro": "Bairro Teste",
+                "cep": "**.742-***",
+                "cidade": {
+                   "codigo": 10
+                }
+              },
+             "ativo": True,
+             "contatos": [
+             {
+                "nome": "Contato1",
+                "email": "contato1@gmail.com",
+                "telefone": "552199999999"
+             }
+             ],
+            "tipo": "CLIENTE",
+            "perfil": "PF"
+          }            
+    
+          self.client.post(
+            "/pessoas",
+            headers={"Authorization": "Bearer "+response.json()['token']},
+            json=payload_pessoa
+          )
+    
+        
+          payload_lancamento =  {
+              "descricao":"LancamentoNovo",
+              "dataVencimento": "2025-04-05",
+              "dataPagamento": "2025-04-05",
+              "valor": 300.00,
+              "observacao": "Pagamento efetuado no débito",
+              "tipo": "DESPESA",
+                 "categoria":{
+                   "codigo": 1
+                 },
+             "pessoa":{
+               "codigo": 1
+              }
+    
+          }
+
+          self.client.post(
+            "/lancamentos",
+            headers={"Authorization": "Bearer "+response.json()['token']},
+            json=payload_lancamento
+          )

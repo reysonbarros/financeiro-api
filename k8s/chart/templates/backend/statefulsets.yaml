@@ -1,0 +1,66 @@
+{{- range $component, $config := .Values.statefulsets }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ $component }}
+  namespace: {{ $config.namespace}} 
+spec:
+  serviceName: {{ $config.serviceName }} 
+  replicas: {{ $config.replicas}}
+  selector:
+    matchLabels:
+      app: {{ $config.labels.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ $config.labels.app }}
+    spec:
+      containers:
+        - name: {{ $config.containers.name }}
+          image: {{ $config.containers.image }}
+          {{- if eq $component "mysql-app"}}
+          env:
+            - name: MYSQL_RANDOM_ROOT_PASSWORD
+              value: "yes"
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-app
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-app
+                  key: password
+            - name: MYSQL_DATABASE
+              value: financeiro
+          volumeMounts:
+            - name: mysql-config-app
+              mountPath: /docker-entrypoint-initdb.d
+          {{- end }}
+          resources:
+            requests:
+              memory: {{ $config.containers.resources.requests.memory }}
+              cpu: {{ $config.containers.resources.requests.cpu }}
+            limits:
+              memory: {{ $config.containers.resources.limits.memory }}
+              cpu: {{ $config.containers.resources.limits.cpu }}
+          livenessProbe:
+            exec:
+              command: [ 'mysqladmin', 'ping' ]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 1
+
+
+      {{- if eq $component "mysql-app" }}        
+      volumes:
+        - name: mysql-config-app
+          configMap:
+            name: mysql-app
+      {{- end }}
+
+---
+{{- end }}
