@@ -95,12 +95,18 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 chmod 700 get_helm.sh
 ./get_helm.sh
 rm get_helm.sh
+helm version
 ```
 
 ***
 ## Environment Setup
-Note: Check if the OS distribution is using cgroups v2. 
-More details access https://kubernetes.io/docs/concepts/architecture/cgroups/.
+- Check if the OS distribution is using cgroups v2
+```bash
+stat -fc %T /sys/fs/cgroup/
+```
+- For cgroup v2, the output is cgroup2fs.
+- For cgroup v1, the output is tmpfs.
+- More details access https://kubernetes.io/docs/concepts/architecture/cgroups
 
 ***
 ### Configure fake DNS local

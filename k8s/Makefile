@@ -13,7 +13,7 @@ load-image-kind:
 	kind load docker-image reysonbarros/financeiro-api:3.0.0 -n financeiro
 
 create-aws-secret:
-	kubectl create secret generic financeiro-api-aws-credentials \
+	@kubectl create secret generic financeiro-api-aws-credentials \
         --from-literal=key_id=${AWS_ACCESS_KEY_ID} \
         --from-literal=secret=${AWS_SECRET_ACCESS_KEY} \
 	-n financeiro
