@@ -7,10 +7,10 @@ create-namespace:
 	kubectl apply -f extra-manifests/namespace/
 
 pull-image-dockerhub:
-	docker image pull reysonbarros/financeiro-api:3.0.0
+	docker image pull reysonbarros/financeiro-api:3.0.1
 
 load-image-kind:
-	kind load docker-image reysonbarros/financeiro-api:3.0.0 -n financeiro
+	kind load docker-image reysonbarros/financeiro-api:3.0.1 -n financeiro
 
 create-aws-secret:
 	@kubectl create secret generic financeiro-api-aws-credentials \

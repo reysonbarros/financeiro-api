@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.4.5</version>
+		<version>3.5.4</version>
 		<relativePath/>
 	</parent>
 
 	<groupId>com.financeiro.api</groupId>
 	<artifactId>financeiro-api</artifactId>
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 	<name>financeiro-api</name>
 	<description>Sistema Financeiro para Controle de Receitas e Despesas</description>
 	<packaging>jar</packaging>
