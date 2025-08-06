@@ -12,7 +12,7 @@
 
 	<groupId>com.financeiro.api</groupId>
 	<artifactId>financeiro-api</artifactId>
-	<version>3.0.1</version>
+	<version>3.0.2</version>
 	<name>financeiro-api</name>
 	<description>Sistema Financeiro para Controle de Receitas e Despesas</description>
 	<packaging>jar</packaging>
@@ -21,7 +21,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>21</java.version>
-		<mysql-connector-j.version>8.0.33</mysql-connector-j.version>
+		<mysql-connector-j.version>8.2.0</mysql-connector-j.version>
 		<flyway.version>9.19.4</flyway.version>
 		<junit-jupiter.version>5.9.3</junit-jupiter.version>
 		<testcontainers.version>1.19.6</testcontainers.version>
@@ -31,10 +31,11 @@
 		<jaxb-api.version>2.3.1</jaxb-api.version>
 		<awssdk-s3-v1.version>1.12.771</awssdk-s3-v1.version>
 		<awssdk-s3-v2.version>2.25.40</awssdk-s3-v2.version>
-		<commons-lang3.version>3.14.0</commons-lang3.version>
+		<commons-lang3.version>3.18.0</commons-lang3.version>
 		<java-jwt.version>4.4.0</java-jwt.version>
 		<junit-platform-launcher.version>1.9.2</junit-platform-launcher.version>
 		<junit-platform-engine.version>1.9.2</junit-platform-engine.version>
+		<spring-security-oauth2-jose.version>7.0.0-M1</spring-security-oauth2-jose.version>
 	</properties>
 
 	<dependencies>
@@ -129,6 +130,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-oauth2-jose</artifactId>
+			<version>${spring-security-oauth2-jose.version}</version>
 		</dependency>
 
 

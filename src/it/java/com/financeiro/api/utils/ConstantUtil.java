@@ -2,7 +2,7 @@ package com.financeiro.api.utils;
 
 public class ConstantUtil {
 
-    public static final String MYSQL_IMAGE_TAG_NAME = "mysql:8.0.33";
+    public static final String MYSQL_IMAGE_TAG_NAME = "mysql:8.2.0";
     public static final String LOCAL_STACK_IMAGE_TAG_NAME = "localstack/localstack:3.0";
     public static final String SERVER_HOST = "http://localhost";
     public static final String CREATE_PESSOA_URI = "/pessoas";

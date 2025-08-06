@@ -1,6 +1,6 @@
 services:
   mysql-financeiro:
-    image: mysql:8.0.33
+    image: mysql:8.2.0
     container_name: mysql-financeiro    
     networks:
       - financeiro_network
@@ -16,7 +16,7 @@ services:
       - /home/reyson/Documentos/mysql/financeiro/config/my.cnf:/etc/my.cnf
   
   financeiro-backend:
-    image: reysonbarros/financeiro-api:3.0.1
+    image: reysonbarros/financeiro-api:3.0.2
     container_name: financeiro-api    
     build: .
     networks:

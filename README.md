@@ -101,6 +101,12 @@ rm get_helm.sh
 helm version
 ```
 
+Trivy(Required)
+```bash
+curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin v0.65.0
+```
+
+
 ***
 ## Environment Setup
 - Check if the OS distribution is using cgroups v2

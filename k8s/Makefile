@@ -1,4 +1,4 @@
-create-all: create-cluster create-namespace pull-image-dockerhub load-image-kind create-aws-secret install-istio enable-sidecar install-prometheus-operator install-metallb wait-metallb install-helm-package-app
+create-all: create-cluster create-namespace pull-image-dockerhub trivy-scan-image load-image-kind create-aws-secret install-istio enable-sidecar install-prometheus-operator install-metallb wait-metallb install-helm-package-app
 
 create-cluster:
 	kind create cluster --config cluster.yaml
@@ -7,10 +7,13 @@ create-namespace:
 	kubectl apply -f extra-manifests/namespace/
 
 pull-image-dockerhub:
-	docker image pull reysonbarros/financeiro-api:3.0.1
+	docker image pull reysonbarros/financeiro-api:3.0.2
+
+trivy-scan-image:
+	trivy image reysonbarros/financeiro-api:3.0.2
 
 load-image-kind:
-	kind load docker-image reysonbarros/financeiro-api:3.0.1 -n financeiro
+	kind load docker-image reysonbarros/financeiro-api:3.0.2 -n financeiro
 
 create-aws-secret:
 	@kubectl create secret generic financeiro-api-aws-credentials \

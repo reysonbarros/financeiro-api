@@ -8,7 +8,7 @@ deployments:
       command: '["sh", "-c", "for i in $(seq 1 300); do telnet mysql-app.financeiro.svc.cluster.local 3306 && exit 0 || echo waiting for database && sleep 3; done; exit 1"]'
     containers:
       name: "financeiro"
-      image: "reysonbarros/financeiro-api:3.0.1"
+      image: "reysonbarros/financeiro-api:3.0.2"
       port: 9090  
       protocol: "TCP"
       resources:
@@ -56,7 +56,7 @@ statefulsets:
       app: "mysql-financeiro"
     containers:
       name: "financeiro-db"
-      image: "mysql:8.0.33"
+      image: "mysql:8.2.0"
       resources:
         requests:
           memory: "1024Mi"    
