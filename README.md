@@ -227,10 +227,10 @@ Note: For the Host field put the value http://financeiro-api.financeiro.svc.clus
   ```bash
   trivy image reysonbarros/financeiro-api:3.0.1
   ```
-  ![src/main/resources/img/trivy_scan_before_fix_vulnerabilities.png](src/main/resources/img/aws_4.png)
+  ![src/main/resources/img/trivy_scan_before_fix_vulnerabilities.png](src/main/resources/img/trivy_scan_before_fix_vulnerabilities.png)
 
 - After fix vulnerabilities
   ```bash
   trivy image reysonbarros/financeiro-api:3.0.2
   ```
-  ![src/main/resources/img/trivy_scan_after_fix_vulnerabilities.png](src/main/resources/img/aws_4.png)
+  ![src/main/resources/img/trivy_scan_after_fix_vulnerabilities.png](src/main/resources/img/trivy_scan_after_fix_vulnerabilities.png)
