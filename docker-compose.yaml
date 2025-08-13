@@ -16,7 +16,7 @@ services:
       - /home/reyson/Documentos/mysql/financeiro/config/my.cnf:/etc/my.cnf
   
   financeiro-backend:
-    image: reysonbarros/financeiro-api:3.0.2
+    image: reysonbarros/financeiro-api:3.0.3
     container_name: financeiro-api    
     build: .
     networks:

@@ -32,6 +32,9 @@ spring:
     deserialization:
       fail-on-unknown-properties: 'true'
     date-format: yyyy-MM-dd
+  threads:
+    virtual:
+      enabled: ${SPRING_THREADS_VIRTUAL_ENABLED:true}
 
 financeiro:
   s3:

@@ -12,7 +12,7 @@
 
 	<groupId>com.financeiro.api</groupId>
 	<artifactId>financeiro-api</artifactId>
-	<version>3.0.2</version>
+	<version>3.0.3</version>
 	<name>financeiro-api</name>
 	<description>Sistema Financeiro para Controle de Receitas e Despesas</description>
 	<packaging>jar</packaging>
