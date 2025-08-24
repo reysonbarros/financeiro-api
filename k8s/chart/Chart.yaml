@@ -1,8 +1,8 @@
 apiVersion: v2
 name: financeiro-api
 description: Sistema Financeiro para Controle de Receitas e Despesas
-version: 3.0.4
-appVersion: 3.0.4
+version: 3.0.5
+appVersion: 3.0.5
 maintainers:
   - name: Reyson Barros
     email: reysonbarros@gmail.com

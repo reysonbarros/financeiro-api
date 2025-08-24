@@ -6,13 +6,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.4</version>
+		<version>3.5.5</version>
 		<relativePath/>
 	</parent>
 
 	<groupId>com.financeiro.api</groupId>
 	<artifactId>financeiro-api</artifactId>
-	<version>3.0.4</version>
+	<version>3.0.5</version>
 	<name>financeiro-api</name>
 	<description>Sistema Financeiro para Controle de Receitas e Despesas</description>
 	<packaging>jar</packaging>
@@ -32,6 +32,7 @@
         <s3.version>2.32.20</s3.version>
 		<commons-lang3.version>3.18.0</commons-lang3.version>
 		<java-jwt.version>4.4.0</java-jwt.version>
+        <netty-codec-http2.version>4.2.4.Final</netty-codec-http2.version>
 		<junit-platform-launcher.version>1.9.2</junit-platform-launcher.version>
 		<junit-platform-engine.version>1.9.2</junit-platform-engine.version>
 		<spring-security-oauth2-jose.version>7.0.0-M1</spring-security-oauth2-jose.version>
@@ -162,7 +163,19 @@
 			<groupId>software.amazon.awssdk</groupId>
 			<artifactId>s3</artifactId>
 			<version>${s3.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-codec-http2</artifactId>
+                </exclusion>
+            </exclusions>
 		</dependency>
+
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-codec-http2</artifactId>
+            <version>${netty-codec-http2.version}</version>
+        </dependency>
 
 		<!-- LOMBOK -->
 		<dependency>

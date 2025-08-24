@@ -7,7 +7,7 @@ load-image-docker:
 	docker image load < jre21-apko.tar
 
 push-to-registry-app:
-	docker image push reysonbarros/financeiro-api:3.0.4
+	docker image push reysonbarros/financeiro-api:3.0.5
 
 push-to-registry-jre:
 	docker image push reysonbarros/jre-apko:21-amd64
@@ -19,7 +19,7 @@ build-with-docker-compose:
 	docker-compose build --no-cache
 
 load-image-kind:
-	kind load docker-image reysonbarros/financeiro-api:3.0.4 -n financeiro
+	kind load docker-image reysonbarros/financeiro-api:3.0.5 -n financeiro
 
 debug-container:
 	cdebug exec -it financeiro-api
