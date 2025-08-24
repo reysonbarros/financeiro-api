@@ -57,9 +57,8 @@ public class LancamentoControllerTest {
     	
         // SETUP
         MultipartFile anexo = mock(MultipartFile.class);
-        String folder = "lancamento-anexo";
         String nome = "arquivo";
-        when(mocks3.salvarTemporariamente(anexo, folder)).thenReturn(nome);
+        when(mocks3.salvarTemporariamente(anexo, null)).thenReturn(nome);
 
         // CALL
         Anexo response = lancamentoController.uploadAnexo(anexo);

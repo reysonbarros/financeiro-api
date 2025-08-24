@@ -12,7 +12,7 @@
 
 	<groupId>com.financeiro.api</groupId>
 	<artifactId>financeiro-api</artifactId>
-	<version>3.0.3</version>
+	<version>3.0.4</version>
 	<name>financeiro-api</name>
 	<description>Sistema Financeiro para Controle de Receitas e Despesas</description>
 	<packaging>jar</packaging>
@@ -29,8 +29,7 @@
 		<lombok.version>1.18.38</lombok.version>
 		<hibernate-validator.version>8.0.0.Final</hibernate-validator.version>
 		<jaxb-api.version>2.3.1</jaxb-api.version>
-		<awssdk-s3-v1.version>1.12.771</awssdk-s3-v1.version>
-		<awssdk-s3-v2.version>2.25.40</awssdk-s3-v2.version>
+        <s3.version>2.32.20</s3.version>
 		<commons-lang3.version>3.18.0</commons-lang3.version>
 		<java-jwt.version>4.4.0</java-jwt.version>
 		<junit-platform-launcher.version>1.9.2</junit-platform-launcher.version>
@@ -160,9 +159,9 @@
 		-->
 		<!-- AWS S3 -->
 		<dependency>
-			<groupId>com.amazonaws</groupId>
-			<artifactId>aws-java-sdk-s3</artifactId>
-			<version>${awssdk-s3-v1.version}</version>
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<version>${s3.version}</version>
 		</dependency>
 
 		<!-- LOMBOK -->
@@ -212,13 +211,6 @@
 			<groupId>org.testcontainers</groupId>
 			<artifactId>localstack</artifactId>
 			<version>${testcontainers.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>software.amazon.awssdk</groupId>
-			<artifactId>s3</artifactId>
-			<version>${awssdk-s3-v2.version}</version>
 			<scope>test</scope>
 		</dependency>
 
