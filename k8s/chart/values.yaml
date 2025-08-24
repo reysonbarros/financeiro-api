@@ -119,8 +119,10 @@ configmaps:
     data:
       SERVER_PORT: "9090"
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql-app.financeiro.svc.cluster.local:3306/financeiro?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
-      AWS_BUCKET_NAME: s3-financeiro-arquivos
-      AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT: "true"
+      AWS_S3_BUCKET: s3-financeiro-arquivos
+      AWS_S3_REGION: us-east-2
+      AWS_S3_ENDPOINT: https://s3.us-east-2.amazonaws.com
+      AWS_S3_PREFIX: lancamento-anexo
       MYSQL_DATABASE: financeiro
       LOG_LEVEL_ROOT: INFO
       LOG_LEVEL_SECURITY: INFO
