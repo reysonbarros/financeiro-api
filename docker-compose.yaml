@@ -12,8 +12,8 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - /home/reyson/Documentos/mysql/financeiro/data:/var/lib/mysql
-      - /home/reyson/Documentos/mysql/financeiro/config/my.cnf:/etc/my.cnf
+      - /home/reysonbarros/Documents/mysql/financeiro/data:/var/lib/mysql
+      - /home/reysonbarros/Documents/mysql/financeiro/config/my.cnf:/etc/my.cnf
   
   financeiro-backend:
     image: reysonbarros/financeiro-api:3.0.5
