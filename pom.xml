@@ -12,7 +12,7 @@
 
 	<groupId>com.financeiro.api</groupId>
 	<artifactId>financeiro-api</artifactId>
-	<version>3.0.5</version>
+	<version>3.0.6</version>
 	<name>financeiro-api</name>
 	<description>Sistema Financeiro para Controle de Receitas e Despesas</description>
 	<packaging>jar</packaging>
@@ -50,12 +50,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- SPRING STARTER TEST -->
@@ -87,11 +81,12 @@
 			<version>${junit-platform-engine.version}</version>
 		</dependency>
 
-		<!-- UNDERTOW SERVER -->
+		<!-- UNDERTOW SERVER. Waiting fix CVE-2025-9784
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-undertow</artifactId>
 		</dependency>
+		-->
 
 		<!-- JPA -->
 		<dependency>
@@ -154,10 +149,6 @@
 			<version>${flyway.version}</version>
 		</dependency>
 
-		<!--
-		     TODO: Change to v2 https://github.com/aws/aws-sdk-java-v2/
-		     More details: https://aws.amazon.com/blogs/developer/the-aws-sdk-for-java-1-x-is-in-maintenance-mode-effective-july-31-2024/
-		-->
 		<!-- AWS S3 -->
 		<dependency>
 			<groupId>software.amazon.awssdk</groupId>
@@ -168,6 +159,14 @@
                     <groupId>io.netty</groupId>
                     <artifactId>netty-codec-http2</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-codec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-codec-http</artifactId>
+                </exclusion>
             </exclusions>
 		</dependency>
 
@@ -175,7 +174,18 @@
             <groupId>io.netty</groupId>
             <artifactId>netty-codec-http2</artifactId>
             <version>${netty-codec-http2.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-codec</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-codec-http</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
 
 		<!-- LOMBOK -->
 		<dependency>

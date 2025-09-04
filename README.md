@@ -101,6 +101,14 @@ rm get_helm.sh
 helm version
 ```
 
+Istioctl(Required)
+```bash
+curl -L https://istio.io/downloadIstio | sh -
+chmod +x ./istio-{current-version}/bin/istioctl
+sudo mv ./istio-{current-version}/bin/istioctl /usr/local/bin/istioctl
+istioctl version
+```
+
 Trivy(Required)
 ```bash
 curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin v0.65.0
