@@ -13,26 +13,12 @@ public class FinanceiroApiProperty {
 
     private final Seguranca seguranca = new Seguranca();
 
-    private final S3 s3 = new S3();
-
     private final Jwt jwt = new Jwt();
 
     public void setOriginPermitida(String originPermitida) {
 
         this.originPermitida = originPermitida;
     }
-
-    @Data
-    public static class S3 {
-
-        private String accessKeyId;
-
-        private String accessKeySecret;
-
-        private String bucket;
-
-    }
-
 
     @Setter
     public static class Seguranca {

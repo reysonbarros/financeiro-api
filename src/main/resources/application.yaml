@@ -19,7 +19,7 @@ logging:
     com:
       financeiro:
         api: ${LOG_LEVEL_APP:INFO}
-    
+
 spring:
   jpa:
     database: MYSQL
@@ -35,13 +35,17 @@ spring:
   threads:
     virtual:
       enabled: ${SPRING_THREADS_VIRTUAL_ENABLED:true}
+  cloud:
+    config:
+      server:
+        awss3:
+          region: ${AWS_S3_REGION:us-east-2}
+          bucket: ${AWS_S3_BUCKET:s3-financeiro-arquivos}
+          endpoint: ${AWS_S3_ENDPOINT:https://s3.us-east-2.amazonaws.com}
+          prefix: ${AWS_S3_PREFIX:lancamento-anexo}
 
 
 financeiro:
-  s3:
-    access-key-id: ${AWS_ACCESS_KEY_ID}
-    access-key-secret: ${AWS_SECRET_ACCESS_KEY}
-    bucket: ${AWS_BUCKET_NAME:s3-financeiro-arquivos}
   jwt:
     secret-key: ${JWT_SECRET_KEY}
     issuer: ${JWT_ISSUER}

@@ -12,11 +12,11 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - /home/reyson/Documentos/mysql/financeiro/data:/var/lib/mysql
-      - /home/reyson/Documentos/mysql/financeiro/config/my.cnf:/etc/my.cnf
+      - /home/reysonbarros/Documents/mysql/financeiro/data:/var/lib/mysql
+      - /home/reysonbarros/Documents/mysql/financeiro/config/my.cnf:/etc/my.cnf
   
   financeiro-backend:
-    image: reysonbarros/financeiro-api:3.0.3
+    image: reysonbarros/financeiro-api:3.0.5
     container_name: financeiro-api    
     build: .
     networks:
@@ -30,10 +30,12 @@ services:
       - MYSQL_USER=financeiro
       - MYSQL_PASSWORD=Financeiro123456789@
       - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-financeiro:3306/financeiro?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
-      - AWS_BUCKET_NAME=s3-financeiro-arquivos
+      - AWS_S3_BUCKET=s3-financeiro-arquivos
+      - AWS_S3_REGION=us-east-2
+      - AWS_S3_ENDPOINT=https://s3.us-east-2.amazonaws.com
+      - AWS_S3_PREFIX=lancamento-anexo
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_JAVA_V1_DISABLE_DEPRECATION_ANNOUNCEMENT=true
     depends_on:
       - mysql-financeiro
     restart: on-failure

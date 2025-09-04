@@ -25,9 +25,9 @@ spring:
     database: MYSQL
     show-sql: ${SPRING_JPA_SHOW_SQL:true}
   datasource:
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
-    url: ${SPRING_DATASOURCE_URL}
+    username: ${MYSQL_USER:financeiro}
+    password: ${MYSQL_PASSWORD:Financeiro123456789@}
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/financeiro?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false}
   jackson:
     deserialization:
       fail-on-unknown-properties: 'true'
@@ -37,10 +37,8 @@ spring:
       enabled: ${SPRING_THREADS_VIRTUAL_ENABLED:true}
 
 financeiro:
-  s3:
-    access-key-id: ${AWS_ACCESS_KEY_ID}
-    access-key-secret: ${AWS_SECRET_ACCESS_KEY}
-    bucket: ${AWS_BUCKET_NAME:bucket-test}
   jwt:
     secret-key: ${JWT_SECRET_KEY}
     issuer: ${JWT_ISSUER}
+    timeZone: ${JWT_TIME_ZONE:GMT-3}
+    expirationSeconds: ${JWT_EXPIRATION_SECONDS:300} # default 5 minutes

@@ -1,9 +1,7 @@
 package com.financeiro.api.categoria;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.financeiro.api.config.AwsConfig;
 import com.financeiro.api.config.ContainersConfig;
-import com.financeiro.api.config.S3LocalStackConfig;
 import com.financeiro.api.model.Categoria;
 import com.financeiro.api.scenario.header.ScenarioHeader;
 import com.financeiro.api.scenario.request.ScenarioRequest;
@@ -39,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@Import({ContainersConfig.class, AwsConfig.class, S3LocalStackConfig.class})
+@Import({ContainersConfig.class})
 @ActiveProfiles(INTEGRATION_TEST_PROFILE)
 public class CategoriaScenarioOkIT {
 

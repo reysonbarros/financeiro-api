@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,11 +54,13 @@ public class LancamentoController {
 	@Autowired
 	private S3 s3;
 
+    @Value("${spring.cloud.config.server.awss3.prefix}")
+    private String s3BucketPrefix;
+
 	
 	@PostMapping(value = "/anexo")
 	public Anexo uploadAnexo(@RequestParam MultipartFile anexo) throws IOException {
-		String folder = "lancamento-anexo";
-		String nome = s3.salvarTemporariamente(anexo, folder);
+		String nome = s3.salvarTemporariamente(anexo, s3BucketPrefix);
 		return new Anexo(nome, s3.configurarUrl(nome));
 	}	
 

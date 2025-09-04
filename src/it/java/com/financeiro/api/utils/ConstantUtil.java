@@ -3,7 +3,7 @@ package com.financeiro.api.utils;
 public class ConstantUtil {
 
     public static final String MYSQL_IMAGE_TAG_NAME = "mysql:8.2.0";
-    public static final String LOCAL_STACK_IMAGE_TAG_NAME = "localstack/localstack:3.0";
+    public static final String LOCAL_STACK_IMAGE_TAG_NAME = "localstack/localstack:4.7.0";
     public static final String SERVER_HOST = "http://localhost";
     public static final String CREATE_PESSOA_URI = "/pessoas";
     public static final String CREATE_CATEGORIA_URI = "/categorias";
@@ -34,6 +34,11 @@ public class ConstantUtil {
     public static final String CONNECTION_HEADER_VALUE = "keep-alive";
 
     public static final String BEARER_AUTH_FIELD = "Bearer";
+
+    public static final String SPRING_CLOUD_AWS_S3_REGION = "spring.cloud.config.server.awss3.region";
+    public static final String SPRING_CLOUD_AWS_S3_BUCKET = "spring.cloud.config.server.awss3.bucket";
+    public static final String SPRING_CLOUD_AWS_S3_PREFIX = "spring.cloud.config.server.awss3.prefix";
+    public static final String SPRING_CLOUD_AWS_S3_ENDPOINT = "spring.cloud.config.server.awss3.endpoint";
 
 
 

@@ -2,9 +2,7 @@ package com.financeiro.api.pessoa;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.financeiro.api.config.AwsConfig;
 import com.financeiro.api.config.ContainersConfig;
-import com.financeiro.api.config.S3LocalStackConfig;
 import com.financeiro.api.model.Pessoa;
 import com.financeiro.api.scenario.header.ScenarioHeader;
 import com.financeiro.api.scenario.request.ScenarioRequest;
@@ -40,7 +38,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@Import({ContainersConfig.class, AwsConfig.class, S3LocalStackConfig.class})
+@Import({ContainersConfig.class})
 @ActiveProfiles(INTEGRATION_TEST_PROFILE)
 // @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) # Keep database clean for each test, so it is a lazy process
 // For MySQL container access via DBeaver you should use root(username) and test(password)
