@@ -8,7 +8,7 @@ deployments:
       command: '["sh", "-c", "for i in $(seq 1 300); do telnet mysql-app.financeiro.svc.cluster.local 3306 && exit 0 || echo waiting for database && sleep 3; done; exit 1"]'
     containers:
       name: "financeiro"
-      image: "reysonbarros/financeiro-api:3.0.3"
+      image: "reysonbarros/financeiro-api:3.0.6"
       port: 9090  
       protocol: "TCP"
       resources:
