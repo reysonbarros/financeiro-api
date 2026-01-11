@@ -35,11 +35,9 @@ public class ContainersConfig {
     }
 
     @Bean
-    LocalStackContainer localstackContainer(DynamicPropertyRegistry registry){
-        LocalStackContainer localStack = new LocalStackContainer(DockerImageName
+    LocalStackContainer localstackContainer(){
+        return new LocalStackContainer(DockerImageName
                 .parse(LOCAL_STACK_IMAGE_TAG_NAME)).withServices(S3);
-
-        return localStack;
     }
 
     @Bean
