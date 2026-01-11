@@ -22,7 +22,6 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>21</java.version>
 		<mysql-connector-j.version>8.2.0</mysql-connector-j.version>
-		<flyway.version>9.19.4</flyway.version>
 		<testcontainers.version>1.21.4</testcontainers.version>
 		<snakeyaml.version>2.0</snakeyaml.version>
 		<lombok.version>1.18.38</lombok.version>
@@ -133,16 +132,15 @@
 		</dependency>
 
 		<!-- FLYWAY -->
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-core</artifactId>
-			<version>${flyway.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-mysql</artifactId>
-			<version>${flyway.version}</version>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-flyway</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+        </dependency>
 
 		<!-- AWS S3 -->
 		<dependency>
